@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const ubuntu = Ubuntu({
   weight: ["400", "500", "700"],
@@ -18,10 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${ubuntu.className}`}>
-        <main className="w-full">{children}</main>
-      </body>
-    </html>
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      appearance={{ theme: dark }}
+    >
+      <html lang="en">
+        <body className={`${ubuntu.className} w-full`}>
+          <main className="w-full">{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
