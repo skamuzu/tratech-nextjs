@@ -1,5 +1,4 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { Sidebar } from "lucide-react";
+import { Home } from "lucide-react";
 
 export default function MarketingLayout({
   children,
@@ -8,7 +7,7 @@ export default function MarketingLayout({
 }) {
   return (
     <>
-    {children}
+      <main className="w-full">{children}</main>
     </>
   );
 }
