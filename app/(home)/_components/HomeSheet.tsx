@@ -5,7 +5,7 @@ export default function HomeSheet() {
     return (
         <Sheet>
             <SheetTrigger className="lg:hidden">
-                <MenuIcon/>
+                <MenuIcon className="text-gray-500"/>
             </SheetTrigger>
             <SheetContent side="right" className="w-full">
             Hello

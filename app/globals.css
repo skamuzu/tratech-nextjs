@@ -157,6 +157,6 @@
   background: inherit;
   filter: blur(4px);
   opacity: 0.7;
-  border-radius: 9999px;
+  /* border-radius: 9999px; */
   z-index: -1;
 }

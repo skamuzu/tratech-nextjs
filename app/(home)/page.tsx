@@ -29,9 +29,10 @@ const SecondList = [
 ];
 
 export default function Page() {
+  console.log(process.env.API_URL)
   return (
+
     <div className="bg-zinc-950">
-     <Navbar/>
       <div className="relative">
         <Hero />
       </div>

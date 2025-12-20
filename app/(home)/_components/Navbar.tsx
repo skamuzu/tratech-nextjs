@@ -10,16 +10,17 @@ import {
 } from "@clerk/nextjs";
 import { Links } from "./links";
 import HomeSheet from "./HomeSheet";
+import Logo from "@/components/Logo";
 
 
 export default function Navbar() {
   return (
     <nav className="flex justify-between bg-navbar items-center shadow-xl border-b-muted text-2xl px-2">
-      <Image src={"/myLogo.png"} alt="Logo" width={100} height={100} className="w-25 h-25 cursor-pointer" />
+      <Logo/>
       <div className="lg:flex hidden">
         {Links.map((link) => (
           <Button key={link.name} variant={"link"} asChild className="text-xl">
-            <Link href={link.name}>{link.name}</Link>
+            <Link href={link.href}>{link.name}</Link>
           </Button>
         ))}
       </div>
