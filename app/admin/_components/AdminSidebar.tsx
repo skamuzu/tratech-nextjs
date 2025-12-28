@@ -8,6 +8,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,12 +55,13 @@ const Links = [
 export default function AdminSidebar() {
   const pathname = usePathname();
   return (
-    <Sidebar variant="inset">
+    <Sidebar>
       <SidebarHeader className="flex items-center justify-start flex-row">
         <Logo />
         <h1 className="font-bold text-2xl">Tratech Club</h1>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarSeparator className="mx-auto" />
+      <SidebarContent className="p-2">
         <SidebarMenu>
           {Links.map((link) => {
             return (
@@ -67,7 +69,7 @@ export default function AdminSidebar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-2 p-2 m-1 rounded-xl hover:bg-background/90 hover:text-foreground",
+                    "flex items-center gap-2 p-3 m-1 rounded-xl hover:bg-background/90 hover:text-foreground",
                     pathname === link.href
                       ? "bg-background/90 text-foreground"
                       : "text-muted-foreground"
@@ -81,12 +83,17 @@ export default function AdminSidebar() {
           })}
         </SidebarMenu>
       </SidebarContent>
+      <SidebarSeparator className="mx-auto" />
+
       <SidebarFooter>
-          <SignOutButton>
-            <Button variant={"outline"} className="p-4 bg-transparent text-white">
-                <LogOut /> Log Out
-            </Button>
-          </SignOutButton>
+        <SignOutButton>
+          <Button
+            variant={"ghost"}
+            className="p-6 bg-transparent text-muted-foreground text-lg flex items-center justify-start "
+          >
+            <LogOut className="w-8! h-8!" /> Log Out
+          </Button>
+        </SignOutButton>
       </SidebarFooter>
     </Sidebar>
   );

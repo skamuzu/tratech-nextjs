@@ -46,7 +46,7 @@ export default async function Page() {
                   {course.status === "draft" ? "Coming Soon" : "Start Learning"}
                   <ArrowRightIcon />
                 </p>
-                <Button className="rounded-2xl ">Course Details</Button>
+                <Button className="rounded-xl ">Course Details</Button>
               </div>
             </div>
             <div className="absolute bottom-0 left-0 right-0 h-1.5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left bg-gradient-to-r from-white/0 via-white/50 to-white/0"></div>
@@ -61,7 +61,7 @@ export default async function Page() {
           <p className="text-xl text-white/60 mb-8">
             Join thousands of students mastering their craft with MESA Tratech
           </p>
-         <Button asChild className="text-background rounded-2xl p-6 text-xl">
+         <Button asChild className="text-background rounded-xl p-6 text-xl">
             <Link href="/">
             <h2>Back to home</h2>
             </Link>
