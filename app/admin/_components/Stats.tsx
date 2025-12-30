@@ -1,43 +1,78 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users2, GraduationCap, BookOpen, Users } from "lucide-react";
+import {
+  Users2,
+  GraduationCap,
+  BookOpen,
+  TrendingUp,
+  LucideIcon,
+} from "lucide-react";
+import { getAdminDashboardData } from "@/lib/api/admin";
 
-const List = [
+interface StatItem {
+  icon: LucideIcon;
+  title: string;
+  value: number;
+  change?: string;
+  trend?: "up" | "down";
+  color: string;
+}
+
+const data = await getAdminDashboardData();
+
+const List: StatItem[] = [
   {
     icon: Users2,
     title: "Active Users",
-    value: 4,
+    value: data.number_of_users,
+    color: "text-blue-600 bg-blue-50 dark:bg-blue-950/30",
   },
   {
     icon: GraduationCap,
     title: "Published Courses",
-    value: 5,
+    value: data.number_of_courses,
+    color: "text-green-600 bg-green-50 dark:bg-green-950/30",
   },
   {
     icon: BookOpen,
     title: "Total Lessons",
-    value: 5,
+    value: data.number_of_lessons,
+    color: "text-purple-600 bg-purple-50 dark:bg-purple-950/30",
   },
 ];
 
 export default function Stats() {
   return (
-    <div className="pt-4">
-      <h1 className="text-3xl font-bold">Stats</h1>
-      <div className="grid grid-cols-3 w-full container justify-around gap-4 py-4 mx-auto">
-        {List.map((item) => {
-          return (
-            <Card key={item.title} className="w-full flex flex-col">
-              <CardHeader>
-                <item.icon className="w-10! h-10! text-muted-foreground" />
-                <CardTitle className="text-4xl">{item.value}</CardTitle>
-              </CardHeader>
-              <CardContent className="text-muted-foreground text-lg">
-                {item.title}
-              </CardContent>
-            </Card>
-          );
-        })}
+    <section className="space-y-4">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-3xl font-semibold">Overview</h2>
+        <p className="text-muted-foreground">
+          Quick Overview of Platform Statistics.
+        </p>
       </div>
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {List.map((item) => (
+          <Card key={item.title} className="overflow-hidden">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-xl font-medium text-muted-foreground">
+                {item.title}
+              </CardTitle>
+              <div className={`p-2 rounded-lg ${item.color}`}>
+                <item.icon className="h-4 w-4" />
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-baseline justify-between">
+                <div className="text-3xl font-bold">
+                  {item.value.toLocaleString()}
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                from last month
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
   );
 }

@@ -55,43 +55,45 @@ const Links = [
 export default function AdminSidebar() {
   const pathname = usePathname();
   return (
-    <Sidebar variant="inset">
-      <SidebarHeader className="flex items-center justify-start flex-row">
+    <Sidebar  className="border-r">
+      <SidebarHeader className="flex items-center justify-start flex-row gap-2 p-4">
         <Logo />
-        <h1 className="font-bold text-2xl">Tratech Club</h1>
+        <h1 className="font-bold text-xl">Tratech Club</h1>
       </SidebarHeader>
-      <SidebarSeparator className="mx-auto border-1.5" />
-      <SidebarContent className="p-2">
-        <SidebarMenu>
+      <SidebarSeparator className="mx-auto" />
+      <SidebarContent className="p-3">
+        <SidebarMenu className="space-y-1">
           {Links.map((link) => {
+            const isActive = pathname === link.href;
             return (
               <SidebarMenuItem key={link.href}>
                 <Link
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-2 p-2 m-1 rounded-xl hover:bg-muted/40 hover:text-foreground",
-                    pathname === link.href
-                      ? "bg-muted/40 text-foreground"
-                      : "text-muted-foreground"
+                    "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all font-medium",
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}
                 >
-                  <link.icon />
-                  {link.name}
+                  <link.icon className="h-5 w-5" />
+                  <span>{link.name}</span>
                 </Link>
               </SidebarMenuItem>
             );
           })}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarSeparator className="mx-auto border-1.5" />
+      <SidebarSeparator className="mx-auto"/>
 
-      <SidebarFooter>
+      <SidebarFooter className="p-3">
         <SignOutButton>
           <Button
-            variant={"ghost"}
-            className="p-6 bg-transparent text-muted-foreground text-lg flex items-center justify-start "
+            variant="ghost"
+            className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-muted"
           >
-            <LogOut className="w-8! h-8!" /> Log Out
+            <LogOut className="h-5 w-5" />
+            <span>Log Out</span>
           </Button>
         </SignOutButton>
       </SidebarFooter>

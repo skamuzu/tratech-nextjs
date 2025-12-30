@@ -15,7 +15,7 @@ import Logo from "@/components/Logo";
 
 export default function Navbar() {
   return (
-    <nav className="flex justify-between bg-navbar items-center shadow-xl border-b-muted text-2xl px-2">
+    <nav className="flex justify-between bg-navbar items-center shadow-xl border-b-muted text-2xl p-2">
       <Logo/>
       <div className="lg:flex hidden">
         {Links.map((link) => (
@@ -24,7 +24,7 @@ export default function Navbar() {
           </Button>
         ))}
       </div>
-      <div className="flex space-x-4 mr-2">
+      <div className="flex space-x-4 mr-2 items-center">
         <SignedOut>
           <SignInButton mode="modal" >
             <Button variant={"link"} className="text-lg">
