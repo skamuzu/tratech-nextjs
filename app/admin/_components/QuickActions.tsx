@@ -13,9 +13,8 @@ import AddModuleDialog from "@/components/dialogs/AddModule";
 import { getAdminDashboardData } from "@/lib/api/admin";
 import { CourseRead } from "@/lib/api/types";
 
-const { courses } = await getAdminDashboardData();
-
-export default function QuickActions() {
+export default async function QuickActions() {
+  const { courses } = await getAdminDashboardData();
   type ActionColor = "blue" | "purple" | "green" | "orange";
 
   interface QuickAction {

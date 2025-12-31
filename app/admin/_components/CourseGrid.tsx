@@ -18,8 +18,6 @@ import {
 import { getAdminDashboardData } from "@/lib/api/admin";
 import Image from "next/image";
 
-const { courses } = await getAdminDashboardData();
-
 type Status = "published" | "draft";
 
 const StatusColor: Record<Status, string> = {
@@ -34,7 +32,8 @@ const StatusIcon: Record<Status, LucideIcon> = {
   draft: Edit,
 };
 
-export default function CourseGrid() {
+export default async function CourseGrid() {
+  const { courses } = await getAdminDashboardData();
   return (
     <section className="flex flex-col space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

@@ -17,30 +17,29 @@ interface StatItem {
   color: string;
 }
 
-const data = await getAdminDashboardData();
+export default async function Stats() {
+  const data = await getAdminDashboardData();
 
-const List: StatItem[] = [
-  {
-    icon: Users2,
-    title: "Active Users",
-    value: data.number_of_users,
-    color: "text-blue-600 bg-blue-50 dark:bg-blue-950/30",
-  },
-  {
-    icon: GraduationCap,
-    title: "Published Courses",
-    value: data.number_of_courses,
-    color: "text-green-600 bg-green-50 dark:bg-green-950/30",
-  },
-  {
-    icon: BookOpen,
-    title: "Total Lessons",
-    value: data.number_of_lessons,
-    color: "text-purple-600 bg-purple-50 dark:bg-purple-950/30",
-  },
-];
-
-export default function Stats() {
+  const List: StatItem[] = [
+    {
+      icon: Users2,
+      title: "Active Users",
+      value: data.number_of_users,
+      color: "text-blue-600 bg-blue-50 dark:bg-blue-950/30",
+    },
+    {
+      icon: GraduationCap,
+      title: "Published Courses",
+      value: data.number_of_courses,
+      color: "text-green-600 bg-green-50 dark:bg-green-950/30",
+    },
+    {
+      icon: BookOpen,
+      title: "Total Lessons",
+      value: data.number_of_lessons,
+      color: "text-purple-600 bg-purple-50 dark:bg-purple-950/30",
+    },
+  ];
   return (
     <section className="space-y-4">
       <div className="flex flex-col gap-2">
