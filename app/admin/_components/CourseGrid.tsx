@@ -33,7 +33,14 @@ const StatusIcon: Record<Status, LucideIcon> = {
 };
 
 export default async function CourseGrid() {
-  const { courses } = await getAdminDashboardData();
+  let courses;
+  try {
+    const data = await getAdminDashboardData();
+    courses = data.courses;
+  } catch (error) {
+    // Return empty courses array during build or when API is unavailable
+    courses = [];
+  }
   return (
     <section className="flex flex-col space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

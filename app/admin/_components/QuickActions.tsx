@@ -14,7 +14,14 @@ import { getAdminDashboardData } from "@/lib/api/admin";
 import { CourseRead } from "@/lib/api/types";
 
 export default async function QuickActions() {
-  const { courses } = await getAdminDashboardData();
+  let courses;
+  try {
+    const data = await getAdminDashboardData();
+    courses = data.courses;
+  } catch (error) {
+    // Return empty courses array during build or when API is unavailable
+    courses = [];
+  }
   type ActionColor = "blue" | "purple" | "green" | "orange";
 
   interface QuickAction {

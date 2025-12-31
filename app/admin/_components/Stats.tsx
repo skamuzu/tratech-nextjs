@@ -18,7 +18,17 @@ interface StatItem {
 }
 
 export default async function Stats() {
-  const data = await getAdminDashboardData();
+  let data;
+  try {
+    data = await getAdminDashboardData();
+  } catch (error) {
+    // Return empty state during build or when API is unavailable
+    data = {
+      number_of_users: 0,
+      number_of_courses: 0,
+      number_of_lessons: 0,
+    };
+  }
 
   const List: StatItem[] = [
     {
