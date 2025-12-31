@@ -57,7 +57,7 @@ export default function Stats() {
                 {item.title}
               </CardTitle>
               <div className={`p-2 rounded-lg ${item.color}`}>
-                <item.icon className="h-4 w-4" />
+                <item.icon className="h-6 w-6" />
               </div>
             </CardHeader>
             <CardContent>

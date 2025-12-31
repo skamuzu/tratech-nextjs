@@ -8,6 +8,12 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ReactElement, ReactNode } from "react";
+import AddModuleDialog from "@/components/dialogs/AddModule";
+import { getAdminDashboardData } from "@/lib/api/admin";
+import { CourseRead } from "@/lib/api/types";
+
+const { courses } = await getAdminDashboardData();
 
 export default function QuickActions() {
   type ActionColor = "blue" | "purple" | "green" | "orange";
@@ -17,6 +23,10 @@ export default function QuickActions() {
     title: string;
     desc: string;
     color: ActionColor;
+     dialog?: React.ComponentType<{
+    children: ReactNode;
+    courses: any;
+  }>;
   }
 
   const actions: QuickAction[] = [
@@ -31,6 +41,7 @@ export default function QuickActions() {
       title: "Add Module",
       desc: "To existing course",
       color: "purple",
+      dialog: AddModuleDialog,
     },
     {
       icon: NotepadText,
@@ -69,28 +80,36 @@ export default function QuickActions() {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {actions.map((item) => (
-          <Card
-            key={item.title}
-            className="group p-4 flex flex-col gap-3 hover:shadow-lg hover:border-primary/50 transition-all cursor-pointer"
-          >
-            <div className="flex items-start justify-between">
-              <div
-                className={`h-12 w-12 flex items-center justify-center rounded-xl transition-colors ${
-                  bgColors[item.color]
-                }`}
-              >
-                <item.icon className={`w-6 h-6 ${iconColors[item.color]}`} />
+        {actions.map((item) => {
+          const CardContent = (
+            <Card className="group p-4 flex flex-col gap-3 hover:shadow-lg hover:border-primary/50 transition-all cursor-pointer">
+              <div className="flex items-start justify-between">
+                <div
+                  className={`h-12 w-12 flex items-center justify-center rounded-xl transition-colors ${
+                    bgColors[item.color]
+                  }`}
+                >
+                  <item.icon className={`w-6 h-6 ${iconColors[item.color]}`} />
+                </div>
+                <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
 
-            <div className="flex flex-col gap-1">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
-            </div>
-          </Card>
-        ))}
+              <div className="flex flex-col gap-1 items-start">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </div>
+            </Card>
+          );
+
+          if (item.dialog) {
+            const DialogComponent = item.dialog;
+            return (
+              <DialogComponent key={item.title} courses={courses}>{CardContent}</DialogComponent>
+            );
+          }
+
+          return <div key={item.title}>{CardContent}</div>;
+        })}
       </div>
     </section>
   );

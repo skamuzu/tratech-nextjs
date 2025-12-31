@@ -1,17 +1,16 @@
-import type { AdminDashboard } from "./types";
+import createClient from "openapi-fetch";
+import type { paths } from "@/types/api";
 
-export async function getAdminDashboardData(): Promise<AdminDashboard> {
-  const response = await fetch(`${process.env.API_URL}/admin/dashboard`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
+const client = createClient<paths>({
+  baseUrl: process.env.API_URL || "http://localhost:8000",
+});
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch admin dashboard data");
+export async function getAdminDashboardData() {
+  const { data, error } = await client.GET("/admin/dashboard");
+
+  if (error) {
+    console.error("Failed to fetch dashboard data:", error);
+    throw new Error("Failed to fetch dashboard data");
   }
-
-  return response.json();
+  return data;
 }

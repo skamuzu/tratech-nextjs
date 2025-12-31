@@ -26,12 +26,12 @@ export default function Navbar() {
       </div>
       <div className="flex space-x-4 mr-2 items-center">
         <SignedOut>
-          <SignInButton mode="modal" >
+          <SignInButton>
             <Button variant={"link"} className="text-lg">
               Log In
             </Button>
           </SignInButton>
-          <SignUpButton mode="modal">
+          <SignUpButton>
             <Button variant={"link"} className="text-lg">
               Sign Up
             </Button>
