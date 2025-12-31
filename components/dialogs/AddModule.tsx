@@ -53,9 +53,7 @@ export default function AddModuleDialog({
           </DialogDescription>
         </DialogHeader>
         <form>
-            <FieldSet>
-                
-            </FieldSet>
+        
         </form>
       </DialogContent>
     </Dialog>

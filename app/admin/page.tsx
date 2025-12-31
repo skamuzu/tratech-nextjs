@@ -5,6 +5,8 @@ import CourseGrid from "./_components/CourseGrid";
 import Navbar from "./_components/Navbar";
 import WelcomeMessage from "./_components/WelcomeMessage";
 
+export const dynamic = "force-dynamic";
+
 export default function Page() {
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-6 md:py-8 lg:py-12 mx-auto max-w-[1600px]">
