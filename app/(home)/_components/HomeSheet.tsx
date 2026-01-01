@@ -8,7 +8,7 @@ import {
 import { MenuIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Links } from "./links";
+import { NAVIGATION_LINKS } from "@/lib/constants/navigation";
 import Logo from "@/components/Logo";
 
 export default function HomeSheet() {
@@ -19,7 +19,7 @@ export default function HomeSheet() {
       </SheetTrigger>
       <SheetContent side="right" className="w-full p-4">
         <div className="flex flex-col gap-4 mt-8">
-          {Links.map((link) => (
+          {NAVIGATION_LINKS.map((link) => (
             <Button
               key={link.name}
               variant={"ghost"}

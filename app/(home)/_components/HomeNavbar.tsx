@@ -8,7 +8,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import { Links } from "./links";
+import { NAVIGATION_LINKS } from "@/lib/constants/navigation";
 import HomeSheet from "./HomeSheet";
 import Logo from "@/components/Logo";
 
@@ -18,7 +18,7 @@ export default function Navbar() {
     <nav className="flex justify-between bg-navbar items-center shadow-xl border-b-muted text-2xl p-2">
       <Logo/>
       <div className="lg:flex hidden">
-        {Links.map((link) => (
+        {NAVIGATION_LINKS.map((link) => (
           <Button key={link.name} variant={"link"} asChild className="text-xl">
             <Link href={link.href}>{link.name}</Link>
           </Button>

@@ -1,5 +1,5 @@
 import { Home } from "lucide-react";
-import Navbar from "./_components/Navbar";
+import HomeNavbar from "./_components/HomeNavbar";
 
 export default function MarketingLayout({
   children,
@@ -8,7 +8,7 @@ export default function MarketingLayout({
 }) {
   return (
     <div className="dark">
-      <Navbar/>
+      <HomeNavbar/>
       <main className="w-full">{children}</main>
     </div>
   );

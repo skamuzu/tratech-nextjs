@@ -11,7 +11,7 @@ import {
   Trophy,
   ArrowRight,
 } from "lucide-react";
-import Hero from "./_components/Hero";
+import HomeHero from "./_components/HomeHero";
 
 const SecondList = [
   {
@@ -48,7 +48,7 @@ export default function Page() {
     <div className="bg-zinc-950">
       {/* Hero Section */}
       <div className="relative">
-        <Hero />
+        <HomeHero />
       </div>
 
       {/* Skills Section */}
