@@ -3,8 +3,7 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
+import { Providers } from "@/components/Providers";
 
 const ubuntu = Ubuntu({
   weight: ["400", "500", "700"],
@@ -18,9 +17,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
@@ -32,15 +31,7 @@ export default function RootLayout({
     >
       <html lang="en" suppressHydrationWarning>
         <body className={`${ubuntu.className} w-full`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-          <Toaster />
+          <Providers>{children}</Providers>
         </body>
       </html>
     </ClerkProvider>

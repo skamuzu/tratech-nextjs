@@ -22,9 +22,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { createModule } from "@/lib/api/admin";
+import { createModule } from "@/lib/api/api";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { ShieldAlert } from "lucide-react";
 
 interface AddModuleDialogProps {
   children: React.ReactNode;
@@ -51,17 +52,16 @@ export default function AddModuleDialog({
   });
 
   const [open, setOpen] = useState(false);
-  
+
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
-    console.log("Form submitted with data:", data);
-    
+
     try {
       await createModule({
         course_id: data.course,
         title: data.title,
         module_number: data.module_number,
       });
-      
+
       toast.success("Module created successfully!");
       form.reset();
       setOpen(false);
@@ -107,6 +107,7 @@ export default function AddModuleDialog({
                 />
                 {form.formState.errors.course && (
                   <p className="text-sm text-red-500">
+                    <ShieldAlert />
                     {form.formState.errors.course.message}
                   </p>
                 )}
@@ -116,6 +117,7 @@ export default function AddModuleDialog({
                 <Input id="title" {...form.register("title")} />
                 {form.formState.errors.title && (
                   <p className="text-sm text-red-500">
+                    <ShieldAlert />
                     {form.formState.errors.title.message}
                   </p>
                 )}
@@ -129,6 +131,7 @@ export default function AddModuleDialog({
                 />
                 {form.formState.errors.module_number && (
                   <p className="text-sm text-red-500">
+                    <ShieldAlert />
                     {form.formState.errors.module_number.message}
                   </p>
                 )}

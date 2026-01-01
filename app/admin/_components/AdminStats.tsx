@@ -6,7 +6,7 @@ import {
   TrendingUp,
   LucideIcon,
 } from "lucide-react";
-import { getAdminDashboardData } from "@/lib/api/admin";
+import { getAdminDashboardData } from "@/lib/api/api";
 
 interface StatItem {
   icon: LucideIcon;

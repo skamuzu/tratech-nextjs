@@ -15,7 +15,7 @@ import {
   Plus,
   ArrowUpRight,
 } from "lucide-react";
-import { getAdminDashboardData } from "@/lib/api/admin";
+import { getAdminDashboardData } from "@/lib/api/api";
 import Image from "next/image";
 
 type Status = "published" | "draft";

@@ -58,6 +58,23 @@ export interface paths {
         patch: operations["update_course_courses__course_id__patch"];
         trace?: never;
     };
+    "/courses/{course_id}/modules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Course Modules */
+        get: operations["get_course_modules_courses__course_id__modules_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/modules/": {
         parameters: {
             query?: never;
@@ -65,8 +82,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get All Modules */
-        get: operations["get_all_modules_modules__get"];
+        get?: never;
         put?: never;
         /** Create Module */
         post: operations["create_module_modules__post"];
@@ -493,13 +509,13 @@ export interface operations {
             };
         };
     };
-    get_all_modules_modules__get: {
+    get_course_modules_courses__course_id__modules_get: {
         parameters: {
-            query?: {
-                course_id?: string | null;
-            };
+            query?: never;
             header?: never;
-            path?: never;
+            path: {
+                course_id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;

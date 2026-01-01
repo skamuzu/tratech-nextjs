@@ -10,7 +10,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ReactElement, ReactNode } from "react";
 import AddModuleDialog from "./dialogs/AddModuleDialog";
-import { getAdminDashboardData } from "@/lib/api/admin";
+import AddLessonDialog from "./dialogs/AddLessonDialog";
+import { getAdminDashboardData } from "@/lib/api/api";
 import { CourseRead } from "@/lib/api/types";
 
 export default async function QuickActions() {
@@ -47,6 +48,7 @@ export default async function QuickActions() {
       title: "Draft Lesson",
       desc: "Create lesson content",
       color: "green",
+      dialog: AddLessonDialog
     },
     {
       icon: Megaphone,
