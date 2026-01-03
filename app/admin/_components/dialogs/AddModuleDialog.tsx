@@ -78,8 +78,7 @@ export default function AddModuleDialog({
         <DialogHeader>
           <DialogTitle>Add New Module</DialogTitle>
           <DialogDescription>
-            Create a new module for an existing course. Fill in the details
-            below.
+            Create a new module for an existing course by filling in the details below.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
@@ -106,18 +105,18 @@ export default function AddModuleDialog({
                   )}
                 />
                 {form.formState.errors.course && (
-                  <p className="text-sm text-red-500">
-                    <ShieldAlert />
+                  <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                    <ShieldAlert className="h-4 w-4" />
                     {form.formState.errors.course.message}
                   </p>
                 )}
               </Field>
               <Field>
                 <FieldLabel htmlFor="title">Module Title</FieldLabel>
-                <Input id="title" {...form.register("title")} />
+                <Input id="title" placeholder="Enter module title" {...form.register("title")} />
                 {form.formState.errors.title && (
-                  <p className="text-sm text-red-500">
-                    <ShieldAlert />
+                  <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                    <ShieldAlert className="h-4 w-4" />
                     {form.formState.errors.title.message}
                   </p>
                 )}
@@ -127,11 +126,12 @@ export default function AddModuleDialog({
                 <Input
                   type="number"
                   id="module_number"
+                  placeholder="Enter module number"
                   {...form.register("module_number", { valueAsNumber: true })}
                 />
                 {form.formState.errors.module_number && (
-                  <p className="text-sm text-red-500">
-                    <ShieldAlert />
+                  <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                    <ShieldAlert className="h-4 w-4" />
                     {form.formState.errors.module_number.message}
                   </p>
                 )}

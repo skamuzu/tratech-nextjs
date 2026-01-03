@@ -87,8 +87,7 @@ export default function AddLessonDialog({
         <DialogHeader>
           <DialogTitle>Add New Lesson</DialogTitle>
           <DialogDescription>
-            Create a new lesson for an existing course. Fill in the details
-            below.
+            Create a new lesson for an existing course by filling in the details below.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -122,13 +121,13 @@ export default function AddLessonDialog({
                   )}
                 />
                 {form.formState.errors.course && (
-                  <p className="text-sm text-red-500">
-                    <ShieldAlert />
+                  <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                    <ShieldAlert className="h-4 w-4" />
                     {form.formState.errors.course.message}
                   </p>
                 )}
                 <Field>
-                  <FieldLabel htmlFor="module">Select a module</FieldLabel>
+                  <FieldLabel htmlFor="module">Select Module</FieldLabel>
                   <Controller
                     name="module"
                     control={form.control}
@@ -139,7 +138,13 @@ export default function AddLessonDialog({
                         disabled={!modules || modules.length === 0}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a value" />
+                          <SelectValue placeholder={
+                            !course
+                              ? "Select a course first"
+                              : modules?.length === 0
+                              ? "No modules available"
+                              : "Select a module"
+                          } />
                         </SelectTrigger>
                         <SelectContent>
                           {modules?.map((module) => (
@@ -151,21 +156,32 @@ export default function AddLessonDialog({
                       </Select>
                     )}
                   />
+                  {!course && (
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                      Please select a course to see available modules
+                    </p>
+                  )}
+                  {course && modules?.length === 0 && (
+                    <p className="text-sm text-amber-600 flex items-center gap-1 mt-1">
+                      <ShieldAlert className="h-4 w-4" />
+                      No modules found for this course. Create a module first.
+                    </p>
+                  )}
                   {form.formState.errors.module && (
-                    <p className="text-sm text-red-500">
-                      <ShieldAlert />
+                    <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                      <ShieldAlert className="h-4 w-4" />
                       {form.formState.errors.module.message}
                     </p>
                   )}
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="title">Lesson Title</FieldLabel>
-                  <Input id="title" {...form.register("title")}></Input>
+                  <Input id="title" placeholder="Enter lesson title" {...form.register("title")}></Input>
                 </Field>
               </Field>
               {form.formState.errors.title && (
-                <p className="text-sm text-red-500">
-                  <ShieldAlert />
+                <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                  <ShieldAlert className="h-4 w-4" />
                   {form.formState.errors.title.message}
                 </p>
               )}
@@ -178,27 +194,29 @@ export default function AddLessonDialog({
                     <Textarea
                       {...field}
                       id="content"
+                      placeholder="Enter lesson content (optional)"
                       aria-invalid={fieldState.invalid}
                     />
                   </Field>
                 )}
               />
               {form.formState.errors.content && (
-                <p className="text-sm text-red-500">
-                  <ShieldAlert />
+                <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                  <ShieldAlert className="h-4 w-4" />
                   {form.formState.errors.content.message}
                 </p>
               )}
               <Field>
-                <FieldLabel htmlFor="lesson_number">Module Number</FieldLabel>
+                <FieldLabel htmlFor="lesson_number">Lesson Number</FieldLabel>
                 <Input
                   type="number"
                   id="lesson_number"
+                  placeholder="Enter lesson number"
                   {...form.register("lesson_number", { valueAsNumber: true })}
                 />
                 {form.formState.errors.lesson_number && (
-                  <p className="text-sm text-red-500">
-                    <ShieldAlert />
+                  <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
+                    <ShieldAlert className="h-4 w-4" />
                     {form.formState.errors.lesson_number.message}
                   </p>
                 )}

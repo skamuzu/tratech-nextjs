@@ -40,7 +40,7 @@ export default async function CourseGrid() {
         <div className="flex flex-col gap-2">
           <h2 className="text-3xl font-semibold">Course Portfolio</h2>
           <p className="text-muted-foreground">
-            Manage curriculum structure, modules and lessons.
+            Manage curriculum structure, modules, and lessons
           </p>
         </div>
         <Button className="w-full sm:w-auto shadow-sm hover:shadow-md transition-shadow">
@@ -49,7 +49,24 @@ export default async function CourseGrid() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      {courses.length === 0 ? (
+        <Card className="border-dashed">
+          <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="rounded-full bg-muted p-6 mb-4">
+              <GraduationCap className="h-12 w-12 text-muted-foreground" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">No courses yet</h3>
+            <p className="text-muted-foreground mb-6 max-w-md">
+              Get started by creating your first course to build your curriculum structure.
+            </p>
+            <Button className="shadow-sm hover:shadow-md transition-shadow">
+              <Plus className="h-4 w-4 mr-2" />
+              Create Your First Course
+            </Button>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {courses.map((item) => {
           const StatusIconComponent = StatusIcon[item.status];
           return (
@@ -182,8 +199,8 @@ export default async function CourseGrid() {
             </Card>
           );
         })}
-      </div>
-
+        </div>
+      )}
     </section>
   );
 }
