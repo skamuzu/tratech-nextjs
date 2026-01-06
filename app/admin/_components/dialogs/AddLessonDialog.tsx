@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useCourseModules } from "@/lib/queries/courses";
 import { Textarea } from "@/components/ui/textarea";
-import { ShieldAlert } from "lucide-react";
+import { ShieldAlert, GraduationCap, BookOpen, FileText, Hash, AlignLeft } from "lucide-react";
 import { createLesson } from "@/lib/api/api";
 import { da } from "zod/v4/locales";
 
@@ -83,18 +83,28 @@ export default function AddLessonDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="outline-0">{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Add New Lesson</DialogTitle>
-          <DialogDescription>
-            Create a new lesson for an existing course by filling in the details below.
-          </DialogDescription>
+          <div className="flex items-center gap-3">
+            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center ring-2 ring-green-500/20">
+              <GraduationCap className="h-6 w-6 text-green-600 dark:text-green-400" />
+            </div>
+            <div>
+              <DialogTitle className="text-xl">Create New Lesson</DialogTitle>
+              <DialogDescription className="text-base">
+                Add a new lesson with content to help students learn
+              </DialogDescription>
+            </div>
+          </div>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FieldSet>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="course">Select Course</FieldLabel>
+                <FieldLabel htmlFor="course" className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-muted-foreground" />
+                  Select Course
+                </FieldLabel>
                 <Controller
                   name="course"
                   control={form.control}
@@ -127,7 +137,10 @@ export default function AddLessonDialog({
                   </p>
                 )}
                 <Field>
-                  <FieldLabel htmlFor="module">Select Module</FieldLabel>
+                  <FieldLabel htmlFor="module" className="flex items-center gap-2">
+                    <BookOpen className="h-4 w-4 text-muted-foreground" />
+                    Select Module
+                  </FieldLabel>
                   <Controller
                     name="module"
                     control={form.control}
@@ -175,7 +188,10 @@ export default function AddLessonDialog({
                   )}
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="title">Lesson Title</FieldLabel>
+                  <FieldLabel htmlFor="title" className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-muted-foreground" />
+                    Lesson Title
+                  </FieldLabel>
                   <Input id="title" placeholder="Enter lesson title" {...form.register("title")}></Input>
                 </Field>
               </Field>
@@ -190,7 +206,10 @@ export default function AddLessonDialog({
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="content">Lesson Content</FieldLabel>
+                    <FieldLabel htmlFor="content" className="flex items-center gap-2">
+                      <AlignLeft className="h-4 w-4 text-muted-foreground" />
+                      Lesson Content
+                    </FieldLabel>
                     <Textarea
                       {...field}
                       id="content"
@@ -207,7 +226,10 @@ export default function AddLessonDialog({
                 </p>
               )}
               <Field>
-                <FieldLabel htmlFor="lesson_number">Lesson Number</FieldLabel>
+                <FieldLabel htmlFor="lesson_number" className="flex items-center gap-2">
+                  <Hash className="h-4 w-4 text-muted-foreground" />
+                  Lesson Number
+                </FieldLabel>
                 <Input
                   type="number"
                   id="lesson_number"
@@ -221,11 +243,22 @@ export default function AddLessonDialog({
                   </p>
                 )}
               </Field>
-              <Field orientation="horizontal">
-                <Button type="submit" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+              <div className="flex justify-end gap-3 pt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setOpen(false);
+                    form.reset();
+                  }}
+                >
+                  Cancel
                 </Button>
-              </Field>
+                <Button type="submit" disabled={form.formState.isSubmitting} className="gap-2">
+                  <GraduationCap className="h-4 w-4" />
+                  {form.formState.isSubmitting ? "Creating Lesson..." : "Create Lesson"}
+                </Button>
+              </div>
             </FieldGroup>
           </FieldSet>
         </form>

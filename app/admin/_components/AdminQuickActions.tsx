@@ -5,12 +5,14 @@ import {
   type LucideIcon,
   Megaphone,
   ArrowRight,
+  FolderPlus
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ReactElement, ReactNode } from "react";
 import AddModuleDialog from "./dialogs/AddModuleDialog";
 import AddLessonDialog from "./dialogs/AddLessonDialog";
+import CreateUserDialog from "./dialogs/CreateUserDialog";
 import { getAdminDashboardData } from "@/lib/api/api";
 import { CourseRead } from "@/lib/api/types";
 
@@ -35,6 +37,7 @@ export default async function QuickActions() {
       title: "Add Member",
       desc: "Invite student or staff",
       color: "blue",
+      dialog: CreateUserDialog
     },
     {
       icon: FileUp,
@@ -50,12 +53,12 @@ export default async function QuickActions() {
       color: "green",
       dialog: AddLessonDialog
     },
-    {
-      icon: Megaphone,
-      title: "Announcements",
-      desc: "Notify all members",
-      color: "orange",
-    },
+    // {
+    //   icon: FolderPlus,
+    //   title: "Add New Project",
+    //   desc: "Create a new project",
+    //   color: "orange",
+    // },
   ];
 
   const bgColors: Record<ActionColor, string> = {
@@ -80,7 +83,7 @@ export default async function QuickActions() {
           Common tasks and shortcuts for faster workflow.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {actions.map((item) => {
           const CardContent = (
             <Card className="group p-4 flex flex-col gap-3 hover:shadow-lg hover:border-primary/50 transition-all cursor-pointer">

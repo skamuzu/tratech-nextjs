@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { createModule } from "@/lib/api/api";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { ShieldAlert } from "lucide-react";
+import { ShieldAlert, BookOpen, Hash, FileText } from "lucide-react";
 
 interface AddModuleDialogProps {
   children: React.ReactNode;
@@ -74,18 +74,28 @@ export default function AddModuleDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="outline-0">{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Add New Module</DialogTitle>
-          <DialogDescription>
-            Create a new module for an existing course by filling in the details below.
-          </DialogDescription>
+          <div className="flex items-center gap-3">
+            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center ring-2 ring-purple-500/20">
+              <BookOpen className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            </div>
+            <div>
+              <DialogTitle className="text-xl">Create New Module</DialogTitle>
+              <DialogDescription className="text-base">
+                Add a new learning module to organize lessons within a course
+              </DialogDescription>
+            </div>
+          </div>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-4">
           <FieldSet>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="course">Select Course</FieldLabel>
+                <FieldLabel htmlFor="course" className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-muted-foreground" />
+                  Select Course
+                </FieldLabel>
                 <Controller
                   name="course"
                   control={form.control}
@@ -112,7 +122,10 @@ export default function AddModuleDialog({
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor="title">Module Title</FieldLabel>
+                <FieldLabel htmlFor="title" className="flex items-center gap-2">
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+                  Module Title
+                </FieldLabel>
                 <Input id="title" placeholder="Enter module title" {...form.register("title")} />
                 {form.formState.errors.title && (
                   <p className="text-sm text-red-500 flex items-center gap-1 mt-1">
@@ -122,7 +135,10 @@ export default function AddModuleDialog({
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor="module_number">Module Number</FieldLabel>
+                <FieldLabel htmlFor="module_number" className="flex items-center gap-2">
+                  <Hash className="h-4 w-4 text-muted-foreground" />
+                  Module Number
+                </FieldLabel>
                 <Input
                   type="number"
                   id="module_number"
@@ -136,11 +152,22 @@ export default function AddModuleDialog({
                   </p>
                 )}
               </Field>
-              <Field orientation="horizontal">
-                <Button type="submit" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+              <div className="flex justify-end gap-3 pt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setOpen(false);
+                    form.reset();
+                  }}
+                >
+                  Cancel
                 </Button>
-              </Field>
+                <Button type="submit" disabled={form.formState.isSubmitting} className="gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  {form.formState.isSubmitting ? "Creating Module..." : "Create Module"}
+                </Button>
+              </div>
             </FieldGroup>
           </FieldSet>
         </form>

@@ -28,17 +28,17 @@ export default function Hero() {
 
         <div className="rainbow-underline hidden md:block"></div>
 
-        <p className="text-muted-foreground text-2xl mt-10 tracking-wider p-2 md:p-0">
+        <p className="text-muted-foreground text-2xl mt-10 tracking-wider p-2 md:p-0 max-w-4xl mx-auto">
           From CAD designs to AI-driven robotics. Join our free learning
           platform designed specifically for the next generation of mechanical
           engineers.
         </p>
         <hr className="my-10" />
-        <div className="mx-auto mt-10 space-x-8 space-y-8">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mx-auto mt-10">
           <Button
             asChild
             variant={"default"}
-            className="p-10 text-2xl rounded-2xl"
+            className="p-10 text-2xl rounded-2xl w-full sm:w-auto"
           >
             <Link href={"/dashboard"}>
               Start Learning Now
@@ -48,10 +48,11 @@ export default function Hero() {
           <Button
             asChild
             variant={"outline"}
-            className="p-10 text-2xl rounded-2xl text-white"
+            className="p-10 text-2xl rounded-2xl text-white w-full sm:w-auto"
           >
             <Link href={"/dashboard"}>Explore Curriculum</Link>
           </Button>
+        </div>
           <div className="mt-24 grid grid-cols-2 gap-8 md:grid-cols-4 border-white/10 pt-12 max-w-5xl mx-auto">
             <div className="p-4 rounded-xl ">
               <div className="text-4xl font-bold text-white mb-1">4+</div>
@@ -78,7 +79,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </section>
   );

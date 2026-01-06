@@ -21,6 +21,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/users/email_invite": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Email Invite */
+        post: operations["email_invite_users_email_invite_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/courses/": {
         parameters: {
             query?: never;
@@ -169,16 +186,19 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** CourseCreate */
-        CourseCreate: {
+        /** Body_create_course_courses__post */
+        Body_create_course_courses__post: {
             /** Title */
             title: string;
             /** Subtitle */
             subtitle?: string | null;
+            /**
+             * Status
+             * @default draft
+             */
+            status: string;
             /** Image */
             image?: string | null;
-            /** @default draft */
-            status: components["schemas"]["Status"];
         };
         /** CourseRead */
         CourseRead: {
@@ -233,6 +253,32 @@ export interface components {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /** InviteItem */
+        InviteItem: {
+            /**
+             * Email Address
+             * Format: email
+             */
+            email_address: string;
+            public_metadata: components["schemas"]["MetaData"];
+            /**
+             * Redirect Url
+             * Format: uri
+             */
+            redirect_url: string;
+            /** Expires In Days */
+            expires_in_days: number;
+            /**
+             * Notify
+             * @default true
+             */
+            notify: boolean;
+            /**
+             * Ignore Existing
+             * @default true
+             */
+            ignore_existing: boolean;
+        };
         /** LessonCreate */
         LessonCreate: {
             /** Title */
@@ -274,6 +320,10 @@ export interface components {
             lesson_number?: number | null;
             /** Content */
             content?: string | null;
+        };
+        /** MetaData */
+        MetaData: {
+            role: components["schemas"]["UserRole"];
         };
         /** ModuleCreate */
         ModuleCreate: {
@@ -321,6 +371,11 @@ export interface components {
          * @enum {string}
          */
         Status: "draft" | "published";
+        /**
+         * UserRole
+         * @enum {string}
+         */
+        UserRole: "admin" | "student";
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -359,6 +414,39 @@ export interface operations {
             };
         };
     };
+    email_invite_users_email_invite_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InviteItem"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_all_courses_courses__get: {
         parameters: {
             query?: never;
@@ -388,7 +476,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CourseCreate"];
+                "multipart/form-data": components["schemas"]["Body_create_course_courses__post"];
             };
         };
         responses: {

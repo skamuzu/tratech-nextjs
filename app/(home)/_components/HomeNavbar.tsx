@@ -11,9 +11,12 @@ import {
 import { NAVIGATION_LINKS } from "@/lib/constants/navigation";
 import HomeSheet from "./HomeSheet";
 import Logo from "@/components/Logo";
+import { checkRole } from "@/lib/roles";
 
 
-export default function Navbar() {
+export default async function Navbar() {
+  const isAdmin = await checkRole("admin");
+  
   return (
     <nav className="flex justify-between bg-navbar items-center shadow-xl border-b-muted text-2xl p-2">
       <Logo/>
@@ -23,6 +26,11 @@ export default function Navbar() {
             <Link href={link.href}>{link.name}</Link>
           </Button>
         ))}
+        {isAdmin && (
+          <Button variant={"link"} asChild className="text-xl">
+            <Link href="/admin">Admin</Link>
+          </Button>
+        )}
       </div>
       <div className="flex space-x-4 mr-2 items-center">
         <SignedOut>
