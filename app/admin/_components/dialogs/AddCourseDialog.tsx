@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ShieldAlert, BookOpen, Hash, FileText, Loader2, CheckCircle, Upload } from "lucide-react";
 import FileUploader from "@/components/fileUploader";
-import { useCreateCourse } from "@/lib/queries/courses";
+import { courseCreate } from "@/lib/api/api";
 
 export default function AddCourseDialog({
   children,
@@ -35,8 +35,8 @@ export default function AddCourseDialog({
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const createCourseMutation = useCreateCourse();
 
   const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
   const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -79,6 +79,7 @@ export default function AddCourseDialog({
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
+      setIsLoading(true);
       setUploadProgress(0);
 
       const courseData = {
@@ -86,13 +87,10 @@ export default function AddCourseDialog({
         subtitle: data.subtitle || "",
         status: data.status,
         image: file ?? undefined,
-      } as Parameters<typeof createCourseMutation.mutateAsync>[0]["data"];
+      } as Parameters<typeof courseCreate>[0];
 
-      await createCourseMutation.mutateAsync({
-        data: courseData,
-        onProgress: (percent) => {
-          setUploadProgress(percent);
-        },
+      const result = await courseCreate(courseData, (percent) => {
+        setUploadProgress(percent);
       });
 
       toast.success("Course created successfully!", {
@@ -109,10 +107,10 @@ export default function AddCourseDialog({
       toast.error("Failed to create course", {
         description: "Please try again later.",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  const isLoading = createCourseMutation.isPending;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
