@@ -1,7 +1,7 @@
 import AdminStats from "./_components/AdminStats";
 import AdminQuickActions from "./_components/AdminQuickActions";
 import AdminRecentActivity from "./_components/AdminRecentActivity";
-import AdminCourseGrid from "./_components/AdminCourseGrid";
+import CourseGrid from "./_components/CourseGrid";
 import AdminWelcome from "./_components/AdminWelcome";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ export default function Page() {
         <AdminWelcome />
         <AdminStats />
         <AdminQuickActions />
-        <AdminCourseGrid />
+        <CourseGrid showHeader={true} />
         {/* <AdminRecentActivity /> */}
       </div>
     </div>

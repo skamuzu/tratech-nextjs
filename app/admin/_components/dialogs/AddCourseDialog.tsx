@@ -27,12 +27,16 @@ import { useState } from "react";
 import { ShieldAlert, BookOpen, Hash, FileText, Loader2, CheckCircle, Upload } from "lucide-react";
 import FileUploader from "@/components/fileUploader";
 import { courseCreate } from "@/lib/api/api";
+import { useRouter } from "next/navigation";
+
 
 export default function AddCourseDialog({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
   const [file, setFile] = useState<File | null>(null);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -102,6 +106,7 @@ export default function AddCourseDialog({
       setFile(null);
       setUploadProgress(0);
       setOpen(false);
+      router.refresh();
     } catch (error) {
       console.error("Error creating course:", error);
       toast.error("Failed to create course", {

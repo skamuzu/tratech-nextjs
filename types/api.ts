@@ -247,6 +247,8 @@ export interface components {
             number_of_lessons: number;
             /** Courses */
             courses: components["schemas"]["CourseRead"][];
+            /** Number Of Published Courses */
+            number_of_published_courses: number;
         };
         /** HTTPValidationError */
         HTTPValidationError: {

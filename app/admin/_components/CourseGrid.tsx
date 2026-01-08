@@ -1,53 +1,51 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   GraduationCap,
   Edit,
   Eye,
-  LucideIcon,
+  Plus,
   BookOpen,
   Layers,
   Users,
-  TrendingUp,
-  Plus,
 } from "lucide-react";
 import { getAdminDashboardData } from "@/lib/api/api";
 import Image from "next/image";
 import AddCourseDialog from "./dialogs/AddCourseDialog";
+import { StatusColor, StatusIcon } from "@/types/types";
 
-type Status = "published" | "draft";
+interface CourseGridProps {
+  showHeader?: boolean;
+  headerTitle?: string;
+  headerDescription?: string;
+}
 
-const StatusColor: Record<Status, string> = {
-  published:
-    "border-green-600 text-green-600 bg-green-50 dark:bg-green-950/30 dark:border-green-500",
-  draft:
-    "border-amber-500 text-amber-600 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-400",
-};
-
-const StatusIcon: Record<Status, LucideIcon> = {
-  published: TrendingUp,
-  draft: Edit,
-};
-
-export default async function CourseGrid() {
+export default async function CourseGrid({ 
+  showHeader = false,
+  headerTitle = "Course Portfolio",
+  headerDescription = "Manage curriculum structure, modules, and lessons"
+}: CourseGridProps) {
   const { courses } = await getAdminDashboardData();
+  
   return (
     <section className="flex flex-col space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-3xl font-semibold">Course Portfolio</h2>
-          <p className="text-muted-foreground">
-            Manage curriculum structure, modules, and lessons
-          </p>
+      {showHeader && (
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-3xl font-semibold">{headerTitle}</h2>
+            <p className="text-muted-foreground">
+              {headerDescription}
+            </p>
+          </div>
+          <AddCourseDialog>
+            <Button className="w-full sm:w-auto shadow-sm hover:shadow-md transition-shadow">
+              <Plus className="h-4 w-4 mr-2" />
+              Add New Course
+            </Button>
+          </AddCourseDialog>
         </div>
-        <AddCourseDialog>
-          <Button className="w-full sm:w-auto shadow-sm hover:shadow-md transition-shadow">
-            <Plus className="h-4 w-4 mr-2" />
-            Add New Course
-          </Button>
-        </AddCourseDialog>
-      </div>
+      )}
 
       {courses.length === 0 ? (
         <Card className="border-dashed">
