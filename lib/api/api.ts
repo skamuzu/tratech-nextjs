@@ -124,13 +124,32 @@ export async function courseCreate(
     formData.append("image", data.image);
   }
 
-   const res = await axios.post(`${process.env.API_URL || "http://localhost:8000"}/courses`, formData, {
-    onUploadProgress: (event) => {
-      if (!event.total) return;
-      const percent = Math.round((event.loaded * 100) / event.total);
-      onProgress(percent);
-    },
-  });
+  const res = await axios.post(
+    `${process.env.API_URL || "http://localhost:8000"}/courses`,
+    formData,
+    {
+      onUploadProgress: (event) => {
+        if (!event.total) return;
+        const percent = Math.round((event.loaded * 100) / event.total);
+        onProgress(percent);
+      },
+    }
+  );
 
   return res.data;
+}
+
+export async function getCoursesAsFile() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/courses/excel/download`,
+    {
+      method: "GET",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to download courses");
+  }
+
+return response;
 }

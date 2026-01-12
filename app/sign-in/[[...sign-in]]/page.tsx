@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <div className="dark min-h-screen bg-zinc-950 flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 opacity-[0.04] grid-bg"></div>
+      <div className="absolute inset-0 opacity-[0.06] grid-bg"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/50 to-zinc-950"></div>
 
       {/* Content */}
